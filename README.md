@@ -17,4 +17,4 @@ Frontend: html, css(tailwind)
 
 Backend: Spring Boot
 
-Database: Relational Database 
+Database: MySQL
