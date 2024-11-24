@@ -13,7 +13,7 @@ GameJiffy is an open platform for game scores.
 
 # Tech Stack
 
-Frontend: Vaadin
+Frontend: html, css(tailwind)
 
 Backend: Spring Boot
 
