@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Admin Loader</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+
+<body class="bg-gray-900 text-white font-sans">
+  <nav class="flex items-center justify-between bg-blue-500 px-4 py-2">
+    <h1 class="text-xl font-bold text-white flex items-center">
+      <i class="fas fa-tools mr-2"></i> Admin Loader
+    </h1>
+    <div>
+      <button class="bg-red-500 px-4 py-2 rounded-md text-white">
+        <i class="fas fa-sign-out-alt mr-1"></i> Logout
+      </button>
+    </div>
+  </nav>
+
+  <div class="grid grid-cols-12 gap-4 px-4 py-8">
+    <div class="col-span-12  h-screen  lg:col-span-2 bg-gray-800 p-4 rounded-lg">
+      <h3 class="text-lg font-semibold mb-4">Admin Options</h3>
+      <ul class="space-y-3">
+        <li>
+          <a href="#" onclick="showSection('upload-game')" class="flex items-center text-blue-400 hover:underline">
+            <i class="fas fa-gamepad mr-2"></i> Upload Game Data
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showSection('upload-news')" class="flex items-center text-blue-400 hover:underline">
+            <i class="fas fa-newspaper mr-2"></i> Upload News
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showSection('manage-users')" class="flex items-center text-blue-400 hover:underline">
+            <i class="fas fa-users-cog mr-2"></i> Manage Users
+          </a>
+        </li>
+        <li>
+          <a href="#" onclick="showSection('analytics')" class="flex items-center text-blue-400 hover:underline">
+            <i class="fas fa-chart-line mr-2"></i> View Analytics
+          </a>
+        </li>
+      </ul>
+    </div>
+
+    <div class="col-span-12 lg:col-span-10 space-y-8">
+      <section id="upload-game" class="bg-gray-800 p-6 rounded-lg hidden">
+        <h2 class="text-2xl font-bold mb-4">Upload Game Data</h2>
+        <form class="space-y-4">
+          <div>
+            <label for="category" class="block text-sm font-medium">Game Category</label>
+            <select id="category" class="w-full px-3 py-2 rounded-md text-black">
+              <option value="">Select Category</option>
+              <option value="football">Football</option>
+              <option value="cricket">Cricket</option>
+              <option value="tennis">Tennis</option>
+              <option value="volleyball">Volleyball</option>
+            </select>
+          </div>
+          <div>
+            <label for="game-title" class="block text-sm font-medium">Game Title</label>
+            <input type="text" id="game-title" class="w-full px-3 py-2 rounded-md text-black" placeholder="e.g., BAN vs IND">
+          </div>
+          <div>
+            <label for="game-data" class="block text-sm font-medium">Game Data</label>
+            <textarea id="game-data" rows="5" class="w-full px-3 py-2 rounded-md text-black" placeholder="Enter game details..."></textarea>
+          </div>
+          <button type="submit" class="bg-blue-500 px-4 py-2 rounded-md text-white">
+            <i class="fas fa-upload mr-1"></i> Upload
+          </button>
+        </form>
+      </section>
+
+   
+      <section id="upload-news" class="bg-gray-800 p-6 rounded-lg hidden">
+        <h2 class="text-2xl font-bold mb-4">Upload News</h2>
+        <form class="space-y-4">
+          <div>
+            <label for="news-title" class="block text-sm font-medium">News Title</label>
+            <input type="text" id="news-title" class="w-full px-3 py-2 rounded-md text-black" placeholder="Enter news title">
+          </div>
+          <div>
+            <label for="news-tags" class="block text-sm font-medium">Tags</label>
+            <input type="text" id="news-tags" class="w-full px-3 py-2 rounded-md text-black" placeholder="e.g., Sports, Updates">
+          </div>
+          <div>
+            <label for="news-content" class="block text-sm font-medium">News Content</label>
+            <textarea id="news-content" rows="5" class="w-full px-3 py-2 rounded-md text-black" placeholder="Enter news content..."></textarea>
+          </div>
+          <button type="submit" class="bg-blue-500 px-4 py-2 rounded-md text-white">
+            <i class="fas fa-upload mr-1"></i> Upload
+          </button>
+        </form>
+      </section>
+
+      <section id="analytics" class="bg-gray-800 p-6 rounded-lg hidden">
+        <h2 class="text-2xl font-bold mb-4">Analytics</h2>
+       
+      </section>
+    </div>
+  </div>
+
+ 
+  <script>
+
+    function showSection(sectionId) {
+      const sections = document.querySelectorAll('section');
+      sections.forEach(section => {
+        section.classList.add('hidden'); 
+      });
+
+      const selectedSection = document.getElementById(sectionId);
+      selectedSection.classList.remove('hidden'); 
+    }
+  </script>
+</body>
+
+</html>

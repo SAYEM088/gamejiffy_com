@@ -37,14 +37,24 @@ public class AuthController {
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
         User user = userService.loginUser(username, password);
         if (user != null) {
-            return "redirect:/home";
+            return "redirect:/";
         }
         model.addAttribute("error", "Invalid username or password");
         return "login";
     }
 
-    @GetMapping("/home")
+    @GetMapping("/")
     public String homePage() {
         return "home";
+    }
+
+    @GetMapping("/host")
+    public String hostPage() {
+        return "host";
+    }
+
+    @GetMapping("/admin")
+    public String adminPage() {
+        return "adminUploader";
     }
 }
