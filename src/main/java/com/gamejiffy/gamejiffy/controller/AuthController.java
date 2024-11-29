@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 public class AuthController {
     @Autowired
     private UserService userService;
+   
 
     @GetMapping("/login")
     public String loginPage() {
@@ -37,12 +38,12 @@ public class AuthController {
     public String login(@RequestParam String username, @RequestParam String password, Model model) {
         User user = userService.loginUser(username, password);
         if (user != null) {
-            return "redirect:/";
+            return "redirect:/host";
         }
         model.addAttribute("error", "Invalid username or password");
         return "login";
     }
-
+    
     @GetMapping("/")
     public String homePage() {
         return "home";
