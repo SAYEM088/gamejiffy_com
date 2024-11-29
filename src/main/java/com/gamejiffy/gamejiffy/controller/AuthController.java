@@ -53,6 +53,10 @@ public class AuthController {
         return "host";
     }
 
+    @GetMapping("/gameupdate")
+    public String gameupdate() {
+        return "gameupdate";
+    }
     @GetMapping("/admin")
     public String adminPage() {
         return "adminUploader";
