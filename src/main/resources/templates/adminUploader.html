@@ -1,3 +1,4 @@
+<!-- adminUploader.html -->
 <!DOCTYPE html>
 <html lang="en">
 
@@ -52,57 +53,79 @@
     <div class="col-span-12 lg:col-span-10 space-y-8">
       <section id="upload-game" class="bg-gray-800 p-6 rounded-lg hidden">
         <h2 class="text-2xl font-bold mb-4">Upload Game Data</h2>
-        <form class="space-y-4">
+        <form action="/uploadGameData" method="POST" class="space-y-4">
           <div>
-            <label for="category" class="block text-sm font-medium">Game Category</label>
-            <select id="category" class="w-full px-3 py-2 rounded-md text-black">
-              <option value="">Select Category</option>
-              <option value="football">Football</option>
-              <option value="cricket">Cricket</option>
-              <option value="tennis">Tennis</option>
-              <option value="volleyball">Volleyball</option>
-            </select>
+              <label for="category" class="block text-sm font-medium">Game Category</label>
+              <select id="category" name="category" class="w-full px-3 py-2 rounded-md text-black">
+                  <option value="">Select Category</option>
+                  <option value="football">Football</option>
+                  <option value="cricket">Cricket</option>
+                  <option value="tennis">Tennis</option>
+                  <option value="volleyball">Volleyball</option>
+              </select>
           </div>
           <div>
-            <label for="game-title" class="block text-sm font-medium">Game Title</label>
-            <input type="text" id="game-title" class="w-full px-3 py-2 rounded-md text-black" placeholder="e.g., BAN vs IND">
+              <label for="gameTitle" class="block text-sm font-medium">Game Title</label>
+              <input type="text" id="gameTitle" name="gameTitle" class="w-full px-3 py-2 rounded-md text-black" placeholder="e.g., BAN vs IND">
           </div>
           <div>
-            <label for="current-score" class="block text-sm font-medium">current score</label>
-            <input type="text" id="current-score" class="w-full px-3 py-2 rounded-md text-black" placeholder="BAN 150-5 (48.2)">
+              <label for="currentScore" class="block text-sm font-medium">Current Score</label>
+              <input type="text" id="currentScore" name="currentScore" class="w-full px-3 py-2 rounded-md text-black" placeholder="BAN 150-5 (48.2)">
           </div>
           <div>
-            <label for="player-details" class="block text-sm font-medium">Player details</label>
-            <textarea id="player-details" rows="5" class="w-full px-3 py-2 rounded-md text-black" placeholder="Enter player-details..."></textarea>
+              <label for="playerDetails" class="block text-sm font-medium">Player Details</label>
+              <textarea id="playerDetails" name="playerDetails" rows="5" class="w-full px-3 py-2 rounded-md text-black" placeholder="Enter player details..."></textarea>
           </div>
-         
           <button type="submit" class="bg-blue-500 px-4 py-2 rounded-md text-white">
-            <i class="fas fa-upload mr-1"></i> Upload
+              <i class="fas fa-upload mr-1"></i> Upload
           </button>
-        </form>
+      </form>
+      
       </section>
-
-   
       <section id="upload-news" class="bg-gray-800 p-6 rounded-lg hidden">
-        <h2 class="text-2xl font-bold mb-4">Upload News</h2>
-        <form class="space-y-4">
+        <h2 class="text-2xl font-bold mb-4 text-white">Upload News</h2>
+        <form action="/uploadNews" method="POST" class="space-y-4">
           <div>
-            <label for="news-title" class="block text-sm font-medium">News Title</label>
-            <input type="text" id="news-title" class="w-full px-3 py-2 rounded-md text-black" placeholder="Enter news title">
+            <label for="newsTitle" class="block text-sm font-medium text-white">News Title</label>
+            <input 
+              type="text" 
+              id="newsTitle" 
+              name="newsTitle" 
+              class="w-full px-3 py-2 rounded-md text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+              placeholder="Enter a catchy news title" 
+              required
+            />
           </div>
           <div>
-            <label for="news-tags" class="block text-sm font-medium">Tags</label>
-            <input type="text" id="news-tags" class="w-full px-3 py-2 rounded-md text-black" placeholder="e.g., Sports, Updates">
+            <label for="tags" class="block text-sm font-medium text-white">Tags</label>
+            <input 
+              type="text" 
+              id="tags" 
+              name="tags" 
+              class="w-full px-3 py-2 rounded-md text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+              placeholder="e.g., Sports, Politics, Updates" 
+              required
+            />
           </div>
           <div>
-            <label for="news-content" class="block text-sm font-medium">News Content</label>
-            <textarea id="news-content" rows="5" class="w-full px-3 py-2 rounded-md text-black" placeholder="Enter news content..."></textarea>
+            <label for="content" class="block text-sm font-medium text-white">News Content</label>
+            <textarea 
+              id="content" 
+              name="content" 
+              rows="5" 
+              class="w-full px-3 py-2 rounded-md text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
+              placeholder="Write the full content of the news here..." 
+              required
+            ></textarea>
           </div>
-          <button type="submit" class="bg-blue-500 px-4 py-2 rounded-md text-white">
-            <i class="fas fa-upload mr-1"></i> Upload
+          <button 
+            type="submit" 
+            class="bg-blue-500 px-4 py-2 rounded-md text-white flex items-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+          >
+            <i class="fas fa-upload mr-2"></i> Upload
           </button>
         </form>
-      </section>
+      </section>      
 
       <section id="analytics" class="bg-gray-800 p-6 rounded-lg hidden">
         <h2 class="text-2xl font-bold mb-4">Analytics</h2>
