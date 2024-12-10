@@ -1,216 +1,286 @@
 <!-- adminUploader.html -->
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Admin Loader</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-</head>
-<body class="bg-gray-900 text-white font-sans">
-  <nav class="flex items-center justify-between bg-blue-500 px-4 py-2">
-    <h1 class="text-xl font-bold text-white flex items-center">
-      <i class="fas fa-tools mr-2"></i> Admin UpLoader
-    </h1>
-    <div>
-      <button class="bg-red-500 px-4 py-2 rounded-md text-white">
-        <i class="fas fa-sign-out-alt mr-1"></i> Logout
-      </button>
-    </div>
-  </nav>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Loader</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body class="bg-gray-900 text-white font-sans">
+    <nav class="flex items-center justify-between bg-blue-500 px-4 py-2">
+      <h1 class="text-xl font-bold text-white flex items-center">
+        <i class="fas fa-tools mr-2"></i> Admin UpLoader
+      </h1>
+      <div>
+        <button class="bg-red-500 px-4 py-2 rounded-md text-white">
+          <i class="fas fa-sign-out-alt mr-1"></i> Logout
+        </button>
+      </div>
+    </nav>
 
-  <div class="grid grid-cols-12 gap-4 px-4 py-8">
-    <div class="col-span-12  h-screen  lg:col-span-2 bg-gray-800 p-4 rounded-lg">
-      <h3 class="text-lg font-semibold mb-4">Admin Options</h3>
-      <ul class="space-y-3">
-        <li>
-          <a href="#" onclick="showSection('upload-game')" class="flex items-center text-blue-400 hover:underline">
-            <i class="fas fa-gamepad mr-2"></i> Upload Game Data
-          </a>
-        </li>
-        <li>
-          <a href="#" onclick="showSection('upload-news')" class="flex items-center text-blue-400 hover:underline">
-            <i class="fas fa-newspaper mr-2"></i> Upload News
-          </a>
-        </li>
-        <li>
-          <a href="#" onclick="showSection('analytics')" class="flex items-center text-blue-400 hover:underline">
-            <i class="fas fa-chart-line mr-2"></i> View Analytics
-          </a>
-        </li>
-        <li>
-            <a href="#" onclick="showSection('updateScore')" class="flex items-center text-blue-400 hover:underline">
-              <i class="fa-brands fa-fantasy-flight-games mr-2"></i>Update Game score
+    <div class="grid grid-cols-12 gap-4 px-4 py-8">
+      <div
+        class="col-span-12 h-screen lg:col-span-2 bg-gray-800 p-4 rounded-lg"
+      >
+        <h3 class="text-lg font-semibold mb-4">Admin Options</h3>
+        <ul class="space-y-3">
+          <li>
+            <a
+              href="#"
+              onclick="showSection('upload-game')"
+              class="flex items-center text-blue-400 hover:underline"
+            >
+              <i class="fas fa-gamepad mr-2"></i> Upload Game Data
             </a>
           </li>
           <li>
-            <a href="#" onclick="showSection('allusers'); fetchAllUsers()" class="flex items-center text-blue-400 hover:underline">
-              <i class="fa-solid fa-users mr-2"></i>View all Users
-            </a>          
+            <a
+              href="#"
+              onclick="showSection('upload-news')"
+              class="flex items-center text-blue-400 hover:underline"
+            >
+              <i class="fas fa-newspaper mr-2"></i> Upload News
+            </a>
           </li>
-      </ul>
-    </div>
+          <li>
+            <a
+              href="#"
+              onclick="showSection('analytics')"
+              class="flex items-center text-blue-400 hover:underline"
+            >
+              <i class="fas fa-chart-line mr-2"></i> View Analytics
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              onclick="showSection('updateScore')"
+              class="flex items-center text-blue-400 hover:underline"
+            >
+              <i class="fa-brands fa-fantasy-flight-games mr-2"></i>Update Game
+              score
+            </a>
+          </li>
+          <li>
+            <a
+              href="#"
+              onclick="showSection('allusers'); fetchAllUsers()"
+              class="flex items-center text-blue-400 hover:underline"
+            >
+              <i class="fa-solid fa-users mr-2"></i>View all Users
+            </a>
+          </li>
+        </ul>
+      </div>
 
-    <div class="col-span-12 lg:col-span-10 space-y-8">
-      <section id="upload-game" class="bg-gray-800 p-6 rounded-lg hidden">
-        <h2 class="text-2xl font-bold mb-4">Upload Game Data</h2>
-        <form action="/uploadGameData" method="POST" class="space-y-4">
-          <div>
-              <label for="category" class="block text-sm font-medium">Game Category</label>
-              <select id="category" name="category" class="w-full px-3 py-2 rounded-md text-black">
-                  <option value="">Select Category</option>
-                  <option value="football">Football</option>
-                  <option value="cricket">Cricket</option>
-                  <option value="tennis">Tennis</option>
-                  <option value="volleyball">Volleyball</option>
+      <div class="col-span-12 lg:col-span-10 space-y-8">
+        <section id="upload-game" class="bg-gray-800 p-6 rounded-lg hidden">
+          <h2 class="text-2xl font-bold mb-4">Upload Game Data</h2>
+          <form action="/uploadGameData" method="POST" class="space-y-4">
+            <div>
+              <label for="category" class="block text-sm font-medium"
+                >Game Category</label
+              >
+              <select
+                id="category"
+                name="category"
+                class="w-full px-3 py-2 rounded-md text-black"
+              >
+                <option value="">Select Category</option>
+                <option value="football">Football</option>
+                <option value="cricket">Cricket</option>
+                <option value="tennis">Tennis</option>
+                <option value="volleyball">Volleyball</option>
               </select>
-          </div>
-          <div>
-              <label for="gameTitle" class="block text-sm font-medium">Game Title</label>
-              <input type="text" id="gameTitle" name="gameTitle" class="w-full px-3 py-2 rounded-md text-black" placeholder="e.g., BAN vs IND">
-          </div>
-          <div>
-              <label for="currentScore" class="block text-sm font-medium">Current Score</label>
-              <input type="text" id="currentScore" name="currentScore" class="w-full px-3 py-2 rounded-md text-black" placeholder="BAN 150-5 (48.2)">
-          </div>
-          <div>
-              <label for="playerDetails" class="block text-sm font-medium">Player Details</label>
-              <textarea id="playerDetails" name="playerDetails" rows="5" class="w-full px-3 py-2 rounded-md text-black" placeholder="Enter player details..."></textarea>
-          </div>
-          <button type="submit" class="bg-blue-500 px-4 py-2 rounded-md text-white">
+            </div>
+            <div>
+              <label for="gameTitle" class="block text-sm font-medium"
+                >Game Title</label
+              >
+              <input
+                type="text"
+                id="gameTitle"
+                name="gameTitle"
+                class="w-full px-3 py-2 rounded-md text-black"
+                placeholder="e.g., BAN vs IND"
+              />
+            </div>
+            <div>
+              <label for="currentScore" class="block text-sm font-medium"
+                >Current Score</label
+              >
+              <input
+                type="text"
+                id="currentScore"
+                name="currentScore"
+                class="w-full px-3 py-2 rounded-md text-black"
+                placeholder="BAN 150-5 (48.2)"
+              />
+            </div>
+            <div>
+              <label for="playerDetails" class="block text-sm font-medium"
+                >Player Details</label
+              >
+              <textarea
+                id="playerDetails"
+                name="playerDetails"
+                rows="5"
+                class="w-full px-3 py-2 rounded-md text-black"
+                placeholder="Enter player details..."
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="bg-blue-500 px-4 py-2 rounded-md text-white"
+            >
               <i class="fas fa-upload mr-1"></i> Upload
-          </button>
-      </form>
-      
-      </section>
-      <section id="upload-news" class="bg-gray-800 p-6 rounded-lg hidden">
-        <h2 class="text-2xl font-bold mb-4 text-white">Upload News</h2>
-        <form action="/uploadNews" method="POST" class="space-y-4">
-          <div>
-            <label for="newsTitle" class="block text-sm font-medium text-white">News Title</label>
-            <input 
-              type="text" 
-              id="newsTitle" 
-              name="newsTitle" 
-              class="w-full px-3 py-2 rounded-md text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-              placeholder="Enter a catchy news title" 
-              required
-            />
-          </div>
-          <div>
-            <label for="tags" class="block text-sm font-medium text-white">Tags</label>
-            <input 
-              type="text" 
-              id="tags" 
-              name="tags" 
-              class="w-full px-3 py-2 rounded-md text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-              placeholder="e.g., Sports, Politics, Updates" 
-              required
-            />
-          </div>
-          <div>
-            <label for="content" class="block text-sm font-medium text-white">News Content</label>
-            <textarea 
-              id="content" 
-              name="content" 
-              rows="5" 
-              class="w-full px-3 py-2 rounded-md text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500" 
-              placeholder="Write the full content of the news here..." 
-              required
-            ></textarea>
-          </div>
-          <button 
-            type="submit" 
-            class="bg-blue-500 px-4 py-2 rounded-md text-white flex items-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
-          >
-            <i class="fas fa-upload mr-2"></i> Upload
-          </button>
-        </form>
-      </section>      
+            </button>
+          </form>
+        </section>
+        <section id="upload-news" class="bg-gray-800 p-6 rounded-lg hidden">
+          <h2 class="text-2xl font-bold mb-4 text-white">Upload News</h2>
+          <form action="/uploadNews" method="POST" class="space-y-4">
+            <div>
+              <label
+                for="newsTitle"
+                class="block text-sm font-medium text-white"
+                >News Title</label
+              >
+              <input
+                type="text"
+                id="newsTitle"
+                name="newsTitle"
+                class="w-full px-3 py-2 rounded-md text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Enter a catchy news title"
+                required
+              />
+            </div>
+            <div>
+              <label for="tags" class="block text-sm font-medium text-white"
+                >Tags</label
+              >
+              <input
+                type="text"
+                id="tags"
+                name="tags"
+                class="w-full px-3 py-2 rounded-md text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="e.g., Sports, Politics, Updates"
+                required
+              />
+            </div>
+            <div>
+              <label for="content" class="block text-sm font-medium text-white"
+                >News Content</label
+              >
+              <textarea
+                id="content"
+                name="content"
+                rows="5"
+                class="w-full px-3 py-2 rounded-md text-black border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                placeholder="Write the full content of the news here..."
+                required
+              ></textarea>
+            </div>
+            <button
+              type="submit"
+              class="bg-blue-500 px-4 py-2 rounded-md text-white flex items-center hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-300"
+            >
+              <i class="fas fa-upload mr-2"></i> Upload
+            </button>
+          </form>
+        </section>
 
-      <section id="analytics" class="bg-gray-800 p-6 rounded-lg hidden">
-        <h2 class="text-2xl font-bold mb-4">Analytics</h2>
-       
-      </section>
-      
-      <section id="allusers" class="bg-gray-800 p-6 rounded-lg hidden">
-        <h2 class="text-2xl font-bold mb-4">All Users</h2>
-        <ul id="users-list" class="space-y-2"></ul>
-      </section>
-      
-    <section id="updateScore" class="bg-gray-800 p-6 rounded-lg hidden" >
-        <h2 class="text-2xl font-bold mb-4">update-Score</h2>
-       <form action="/updateScore" method="PUT">
-        <div>
-            <label for="current-score" class="block text-sm font-medium">current score</label>
-            <input type="text" id="current-score" class="w-full px-3 py-2 rounded-md text-black" placeholder="BAN 150-5 (48.2)">
-          </div>
-          <button type="submit" class="bg-blue-500 px-4 py-2 rounded-md text-white mt-4">
-            <i class="fas fa-upload mr-1"></i> Update
-          </button>
-       </form>
-    </section>
+        <section id="analytics" class="bg-gray-800 p-6 rounded-lg hidden">
+          <h2 class="text-2xl font-bold mb-4">Analytics</h2>
+        </section>
+
+        <section id="allusers" class="bg-gray-800 p-6 rounded-lg hidden">
+          <h2 class="text-2xl font-bold mb-4">All Users</h2>
+          <ul id="users-list" class="space-y-2"></ul>
+        </section>
+
+        <section id="updateScore" class="bg-gray-800 p-6 rounded-lg hidden">
+          <h2 class="text-2xl font-bold mb-4">update-Score</h2>
+          <form action="/updateScore" method="PUT">
+            <div>
+              <label for="current-score" class="block text-sm font-medium"
+                >current score</label
+              >
+              <input
+                type="text"
+                id="current-score"
+                class="w-full px-3 py-2 rounded-md text-black"
+                placeholder="BAN 150-5 (48.2)"
+              />
+            </div>
+            <button
+              type="submit"
+              class="bg-blue-500 px-4 py-2 rounded-md text-white mt-4"
+            >
+              <i class="fas fa-upload mr-1"></i> Update
+            </button>
+          </form>
+        </section>
+      </div>
     </div>
-  </div>
 
- 
-  <script>
+    <script>
+      function showSection(sectionId) {
+        const sections = document.querySelectorAll("section");
+        sections.forEach((section) => {
+          section.classList.add("hidden");
+        });
 
-    function showSection(sectionId) {
-      const sections = document.querySelectorAll('section');
-      sections.forEach(section => {
-        section.classList.add('hidden'); 
-      });
-
-      const selectedSection = document.getElementById(sectionId);
-      selectedSection.classList.remove('hidden'); 
-    }
-    function fetchAllUsers() {
-    fetch('/all')
-        .then(response => {
+        const selectedSection = document.getElementById(sectionId);
+        selectedSection.classList.remove("hidden");
+      }
+      function fetchAllUsers() {
+        fetch("/all")
+          .then((response) => {
             if (!response.ok) {
-                throw new Error(`HTTP error! Status: ${response.status}`);
+              throw new Error(`HTTP error! Status: ${response.status}`);
             }
             return response.json();
-        })
-        .then(data => {
-            const userList = document.getElementById('users-list');
-            userList.innerHTML = '';
-            data.forEach(user => {
-                const li = document.createElement('li');
-                li.className = 'flex justify-between items-center text-white';
-                li.innerHTML = `
+          })
+          .then((data) => {
+            const userList = document.getElementById("users-list");
+            userList.innerHTML = "";
+            data.forEach((user) => {
+              const li = document.createElement("li");
+              li.className = "flex justify-between items-center text-white";
+              li.innerHTML = `
                     <span>Name: ${user.username}, Email: ${user.email}</span>
                     <button class="bg-red-500 px-3 py-1 rounded-md text-white hover:bg-red-600" 
                         onclick="deleteUser(${user.id}, this)">
                         Delete
                     </button>`;
-                userList.appendChild(li);
+              userList.appendChild(li);
             });
-        })
-        .catch(error => console.error('Error fetching users:', error));
-}
+          })
+          .catch((error) => console.error("Error fetching users:", error));
+      }
 
-
-
-function deleteUser(userId, buttonElement) {
-    fetch(`/deleteUser/${userId}`, { method: 'DELETE' })
-        .then(response => {
+      function deleteUser(userId, buttonElement) {
+        fetch(`/deleteUser/${userId}`, { method: "DELETE" })
+          .then((response) => {
             if (!response.ok) {
-                throw new Error(`Failed to delete user with ID ${userId}`);
+              throw new Error(`Failed to delete user with ID ${userId}`);
             }
-            const li = buttonElement.closest('li');
+            const li = buttonElement.closest("li");
             li.remove();
-        })
-        .catch(error => console.error('Error deleting user:', error));
-}
+          })
+          .catch((error) => console.error("Error deleting user:", error));
+      }
 
-  document.querySelector('a[href="#"]').addEventListener('click', () => {
-    fetchAllUsers();
-  });
-  </script>
-</body>
-
+      document.querySelector('a[href="#"]').addEventListener("click", () => {
+        fetchAllUsers();
+      });
+    </script>
+  </body>
 </html>
