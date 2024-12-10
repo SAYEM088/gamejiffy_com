@@ -12,12 +12,19 @@ public class News {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String newsTitle;   // Matches "news-title" input in the form
-    private String tags;        // Matches "news-tags" input in the form
-    private String content;     // Matches "news-content" input in the form
-   
+    private String newsTitle;
+    private String tags;
+    private String content;
 
-    // Getters and Setters
+    public News() {
+    }
+
+    public News(String newsTitle, String tags, String content) {
+        this.newsTitle = newsTitle;
+        this.tags = tags;
+        this.content = content;
+    }
+
     public Long getId() {
         return id;
     }
@@ -50,6 +57,4 @@ public class News {
         this.content = content;
     }
 
-  
-   
 }

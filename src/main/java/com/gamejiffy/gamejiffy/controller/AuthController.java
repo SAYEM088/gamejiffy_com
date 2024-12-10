@@ -1,4 +1,5 @@
 package com.gamejiffy.gamejiffy.controller;
+
 import com.gamejiffy.gamejiffy.model.User;
 import com.gamejiffy.gamejiffy.service.UserService;
 import com.gamejiffy.gamejiffy.model.GameData;
@@ -6,11 +7,12 @@ import com.gamejiffy.gamejiffy.model.News;
 import com.gamejiffy.gamejiffy.service.GameDataService;
 import com.gamejiffy.gamejiffy.service.NewsService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity; 
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+
 @Controller
 public class AuthController {
     @Autowired
@@ -19,14 +21,17 @@ public class AuthController {
     private GameDataService gameDataService;
     @Autowired
     private NewsService newsService;
+
     @GetMapping("/login")
     public String loginPage() {
         return "login";
     }
+
     @GetMapping("/signup")
     public String signupPage() {
         return "signup";
     }
+
     @PostMapping("/signup")
     public String signup(@ModelAttribute User user, Model model) {
         userService.registerUser(user);
@@ -81,6 +86,7 @@ public class AuthController {
         model.addAttribute("message", "Game data uploaded successfully!");
         return "adminUploader";
     }
+
     @PostMapping("/uploadNews")
     public String uploadNews(
             @RequestParam("newsTitle") String newsTitle,
@@ -94,7 +100,8 @@ public class AuthController {
         newsService.saveNews(news);
         model.addAttribute("message", "News uploaded successfully!");
         return "adminUploader";
-        }
+    }
+
     // Update Score for a User
     @PostMapping("/updateScore")
     public String updateScore(
@@ -111,14 +118,16 @@ public class AuthController {
         }
         return "adminUploader";
     }
-    @GetMapping("/all")
-public ResponseEntity<List<User>> getAllUsers() {
-    return ResponseEntity.ok(userService.getAllUsers());
-}
 
-   @DeleteMapping("/deleteUser/{userId}")
-public ResponseEntity<?> deleteUser(@PathVariable("userId") Long id) {
-    userService.deleteUserById(id);
-    return ResponseEntity.ok().build();
+    @GetMapping("/all")
+    public ResponseEntity<List<User>> getAllUsers() {
+        return ResponseEntity.ok(userService.getAllUsers());
+    }
+
+    @DeleteMapping("/deleteUser/{userId}")
+    public ResponseEntity<?> deleteUser(@PathVariable("userId") Long id) {
+        userService.deleteUserById(id);
+        return ResponseEntity.ok().build();
+    }
 }
-}
+// let's make innovations, shall we?
