@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
+import org.springframework.http.HttpStatus;
 @Controller
 public class AuthController {
     @Autowired
@@ -53,9 +54,9 @@ public class AuthController {
         return "host";
     }
 
-    @GetMapping("/gameupdate")
+    @GetMapping("/gameinfo")
     public String gameupdate() {
-        return "gameupdate";
+        return "gameinfo";
     }
 
     @GetMapping("/admin")
@@ -95,30 +96,34 @@ public class AuthController {
         model.addAttribute("message", "News uploaded successfully!");
         return "adminUploader";
         }
-    // Update Score for a User
-    @PostMapping("/updateScore")
-    public String updateScore(
-            @RequestParam Long userId,
-            @RequestParam String newScore,
-            Model model) {
-        GameData gameData = gameDataService.findByUserId(userId);
-        if (gameData != null) {
-            gameData.setCurrentScore(newScore);
-            gameDataService.saveGameData(gameData);
-            model.addAttribute("message", "Score updated successfully!");
-        } else {
-            model.addAttribute("error", "User not found!");
+        @GetMapping("/allNewsData")
+         public ResponseEntity<List<News>> getAllNews() {
+         return ResponseEntity.ok(newsService.getAllNews());
         }
-        return "adminUploader";
-    }
-    @GetMapping("/all")
-public ResponseEntity<List<User>> getAllUsers() {
-    return ResponseEntity.ok(userService.getAllUsers());
+        @GetMapping("/allUser")
+         public ResponseEntity<List<User>> getAllUsers() {
+         return ResponseEntity.ok(userService.getAllUsers());
+        }
+        @DeleteMapping("/deleteUser/{userId}")
+        public ResponseEntity<?> deleteUser(@PathVariable("userId") Long id) {
+         userService.deleteUserById(id);
+         return ResponseEntity.ok().build();
+        }   
+@GetMapping("/allGameData")
+public ResponseEntity<List<GameData>> fetchAllGameData() {
+    List<GameData> allGameData = gameDataService.getAllGameData();
+    return ResponseEntity.ok(allGameData);
 }
+@PostMapping("/gameupdate/updateScore")
+public ResponseEntity<?> updateGameScore(
+        @RequestParam("gameId") Long gameId,
+        @RequestParam("newScore") String newScore) {
+    boolean isUpdated = gameDataService.updateScore(gameId, newScore);
 
-   @DeleteMapping("/deleteUser/{userId}")
-public ResponseEntity<?> deleteUser(@PathVariable("userId") Long id) {
-    userService.deleteUserById(id);
-    return ResponseEntity.ok().build();
+    if (isUpdated) {
+        return ResponseEntity.ok("Score updated successfully!");
+    } else {
+        return ResponseEntity.status(HttpStatus.NOT_FOUND).body("Game data not found.");
+    }
 }
 }

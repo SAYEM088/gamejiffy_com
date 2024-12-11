@@ -140,21 +140,43 @@
         <ul id="users-list" class="space-y-2"></ul>
       </section>
       
-    <section id="updateScore" class="bg-gray-800 p-6 rounded-lg hidden" >
-        <h2 class="text-2xl font-bold mb-4">update-Score</h2>
-       <form action="/updateScore" method="PUT">
-        <div>
-            <label for="current-score" class="block text-sm font-medium">current score</label>
-            <input type="text" id="current-score" class="w-full px-3 py-2 rounded-md text-black" placeholder="BAN 150-5 (48.2)">
+      <section id="updateScore" class="bg-gray-800 p-6 rounded-lg hidden">
+        <h2 class="text-2xl font-bold mb-4">Update Game Score</h2>
+        <div class="game-list mb-4">
+
+        </div>
+        <form id="updateScoreForm" class="space-y-4">
+          <div>
+            <label for="game-id" class="block text-sm font-medium">Game ID</label>
+            <input
+              type="text"
+              id="game-id"
+              name="gameId"
+              class="w-full px-3 py-2 rounded-md text-black"
+              placeholder="Enter Game ID"
+            />
           </div>
-          <button type="submit" class="bg-blue-500 px-4 py-2 rounded-md text-white mt-4">
+          <div>
+            <label for="current-score" class="block text-sm font-medium">Current Score</label>
+            <input
+              type="text"
+              id="current-score"
+              name="currentScore"
+              class="w-full px-3 py-2 rounded-md text-black"
+              placeholder="Enter Current Score"
+            />
+          </div>
+          <button
+            type="submit"
+            class="bg-blue-500 px-4 py-2 rounded-md text-white"
+          >
             <i class="fas fa-upload mr-1"></i> Update
           </button>
-       </form>
-    </section>
+        </form>
+      </section>
+      
     </div>
   </div>
-
  
   <script>
 
@@ -168,7 +190,7 @@
       selectedSection.classList.remove('hidden'); 
     }
     function fetchAllUsers() {
-    fetch('/all')
+    fetch('/allUser')
         .then(response => {
             if (!response.ok) {
                 throw new Error(`HTTP error! Status: ${response.status}`);
@@ -193,8 +215,6 @@
         .catch(error => console.error('Error fetching users:', error));
 }
 
-
-
 function deleteUser(userId, buttonElement) {
     fetch(`/deleteUser/${userId}`, { method: 'DELETE' })
         .then(response => {
@@ -207,6 +227,84 @@ function deleteUser(userId, buttonElement) {
         .catch(error => console.error('Error deleting user:', error));
 }
 
+function fetchAllGames() {
+  fetch('/allGameData')
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.json();
+    })
+    .then((data) => {
+      const gameDisplay = document.querySelector('#updateScore .game-list');
+      gameDisplay.innerHTML = ''; 
+
+      data.forEach((game) => {
+        const div = document.createElement('div');
+        div.className = 'p-4 bg-gray-700 rounded-lg mb-2';
+        div.innerHTML = `
+          <div class="flex justify-between items-center">
+            <div>
+              <p class="text-white font-semibold">Game ID: ${game.id}</p>
+              <p>Title: ${game.gameTitle}</p>
+              <p>Current Score: ${game.currentScore}</p>
+            </div>
+            <button class="bg-blue-500 px-3 py-1 rounded-md text-white hover:bg-blue-600"
+              onclick="populateUpdateForm(${game.id}, '${game.currentScore}')">
+              Edit Score
+            </button>
+          </div>`;
+        gameDisplay.appendChild(div);
+      });
+    })
+    .catch((error) => console.error('Error fetching games:', error));
+}
+
+function populateUpdateForm(gameId, currentScore) {
+  document.getElementById('game-id').value = gameId;
+  document.getElementById('current-score').value = currentScore;
+  document.getElementById('updateScoreForm').scrollIntoView({ behavior: 'smooth' });
+}
+
+function updateGameScore(event) {
+  event.preventDefault(); 
+
+  const gameId = document.getElementById('game-id').value;
+  const currentScore = document.getElementById('current-score').value;
+
+  if (!gameId || !currentScore) {
+    alert('Please provide both Game ID and Current Score.');
+    return;
+  }
+
+  const formData = new URLSearchParams();
+  formData.append('gameId', gameId);
+  formData.append('newScore', currentScore);
+
+  fetch('/gameupdate/updateScore', {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: formData.toString(),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`HTTP error! Status: ${response.status}`);
+      }
+      return response.text();
+    })
+    .then((responseText) => {
+      alert('Score updated successfully!');
+      fetchAllGames();
+    })
+    .catch((error) => {
+      console.error('Error updating game score:', error);
+      alert('Failed to update score. Please try again.');
+    });
+}
+document.getElementById('updateScoreForm').addEventListener('submit', updateGameScore);
+fetchAllGames();
   document.querySelector('a[href="#"]').addEventListener('click', () => {
     fetchAllUsers();
   });

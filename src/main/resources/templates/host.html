@@ -1,52 +1,42 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Host Game</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
-
 <body class="bg-gray-900 text-white font-sans">
-
   <nav class="flex items-center justify-between bg-blue-500 px-4 py-2">
     <h1 class="text-xl font-bold text-white">GameJiffy</h1>
     <a href="/" class="bg-red-500 px-4 py-2 rounded-md text-sm font-semibold hover:bg-red-600 transition">Home</a>
   </nav>
-
   <div class="max-w-4xl mx-auto mt-8 p-4 bg-gray-800 rounded-lg">
     <h2 class="text-2xl font-semibold mb-4">Host Your Live Game</h2>
     <form class="space-y-6">
-      <!-- Game Name -->
       <div>
         <label for="game-name" class="block text-sm font-medium">Game Name</label>
         <input type="text" id="game-name" placeholder="Enter game name" 
           class="w-full mt-1 px-4 py-2 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500">
       </div>
-
-      <!-- Date & Time -->
       <div>
         <label for="date-time" class="block text-sm font-medium">Date & Time</label>
         <input type="datetime-local" id="date-time" 
           class="w-full mt-1 px-4 py-2 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500">
       </div>
-
-      <!-- Game Description -->
       <div>
         <label for="description" class="block text-sm font-medium">Description</label>
         <textarea id="description" rows="4" placeholder="Enter game description" 
           class="w-full mt-1 px-4 py-2 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500"></textarea>
       </div>
-
-      <!-- Stream Key -->
       <div>
         <label for="stream-key" class="block text-sm font-medium">Stream Key</label>
         <input type="text" id="stream-key" placeholder="Enter stream key (optional)" 
           class="w-full mt-1 px-4 py-2 rounded-md bg-gray-700 text-white focus:ring-2 focus:ring-blue-500">
       </div>
-
-      <!-- Start Live Button -->
+      <div id="camera-container" class="hidden mt-4">
+        <video id="camera-feed" autoplay playsinline class="w-full rounded-md"></video>
+      </div>
       <div class="flex items-center justify-center">
         <button type="submit" 
           class="bg-green-500 px-6 py-2 rounded-md text-white font-semibold hover:bg-green-600 transition duration-200 flex items-center space-x-2">
@@ -57,6 +47,29 @@
     </form>
   </div>
 
-</body>
+  <script>
+    const streamKeyInput = document.getElementById('stream-key');
+    const cameraContainer = document.getElementById('camera-container');
+    const cameraFeed = document.getElementById('camera-feed');
 
+    streamKeyInput.addEventListener('focus', async () => {
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({ video: true });
+        cameraFeed.srcObject = stream;
+        cameraContainer.classList.remove('hidden'); 
+      } catch (error) {
+        console.error('Error accessing camera:', error);
+        alert('Could not access camera. Please allow camera access in your browser settings.');
+      }
+    });
+    streamKeyInput.addEventListener('blur', () => {
+      if (cameraFeed.srcObject) {
+        const tracks = cameraFeed.srcObject.getTracks();
+        tracks.forEach(track => track.stop());
+        cameraFeed.srcObject = null;
+      }
+      cameraContainer.classList.add('hidden'); 
+    });
+  </script>
+</body>
 </html>
